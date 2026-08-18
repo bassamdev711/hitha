@@ -5,10 +5,12 @@ import { PrismaClient } from '@prisma/client'
 // the provider variable before the client is initialized so both environments
 // work without duplicating or exposing connection strings in application code.
 if (!process.env.DATABASE_URL) {
-  process.env.DATABASE_URL =
+  const neonDatabaseUrl =
     process.env.POSTGRES_PRISMA_URL ||
     process.env.POSTGRES_URL_NO_SSL ||
     process.env.DIRECT_URL
+
+  if (neonDatabaseUrl) process.env.DATABASE_URL = neonDatabaseUrl
 }
 
 const prismaClientSingleton = () => {
