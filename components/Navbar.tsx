@@ -9,8 +9,8 @@ import SearchModal from "./SearchModal";
 import { useCartAnimation } from "./CartAnimationProvider";
 
 export default function Navbar({
-  storeName = 'متجرك',
-  storeNameLatin = 'YOUR STORE',
+  storeName = 'أثر',
+  storeNameLatin = 'ATHR',
 }: {
   storeName?: string
   storeNameLatin?: string
@@ -88,7 +88,7 @@ export default function Navbar({
 
       <motion.div initial={false} animate={{ opacity: isMobileMenuOpen ? 1 : 0, pointerEvents: isMobileMenuOpen ? "auto" : "none" }} className="fixed inset-0 z-40 flex min-h-screen flex-col justify-between bg-ink px-7 py-32 backdrop-blur-xl" dir="rtl">
         <div className="space-y-5">
-          <p className="mb-8 text-[10px] font-bold tracking-[0.35em] text-copper uppercase">navigation / أثر</p>
+          <p className="mb-8 text-[10px] font-bold tracking-[0.35em] text-copper uppercase">ATHR / أثر</p>
           {navLinks.map((link, i) => (
             <motion.div key={link.name} initial={{ y: 20, opacity: 0 }} animate={isMobileMenuOpen ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }} transition={{ delay: i * 0.07 }}>
               <Link href={link.href} className="flex items-center justify-between border-b border-paper/10 py-4 text-3xl font-black text-paper" onClick={() => setIsMobileMenuOpen(false)}><span>{link.name}</span><ArrowUpLeft className="text-copper" size={22} /></Link>

@@ -16,7 +16,7 @@ export type AgentPromptOptions = {
 export const products: AgentProduct[] = []
 
 export function getAgentPrompt(userMessage: string, options: AgentPromptOptions = {}): string {
-  const storeName = options.storeName?.trim() || 'متجرنا'
+  const storeName = options.storeName?.trim() || 'أثر'
   const currency = options.currency?.trim() || 'YER'
   const catalog = options.products ?? products
   const productList = catalog.length > 0

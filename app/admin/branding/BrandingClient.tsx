@@ -25,8 +25,8 @@ export default function BrandingClient({ initial }: BrandingClientProps) {
   const [ogPreview, setOgPreview] = useState<string | null>(initial.ogImageUrl || null)
   const [faviconPreview, setFaviconPreview] = useState<string | null>(initial.faviconUrl || null)
   const [storeUrl, setStoreUrl] = useState(initial.storeUrl || '')
-  const [storeName, setStoreName] = useState(initial.storeName || 'متجرك')
-  const [storeNameLatin, setStoreNameLatin] = useState(initial.storeNameLatin || 'YOUR STORE')
+  const [storeName, setStoreName] = useState(initial.storeName || 'أثر')
+  const [storeNameLatin, setStoreNameLatin] = useState(initial.storeNameLatin || 'ATHR')
   const [storeTagline, setStoreTagline] = useState(initial.storeTagline || '')
   const [storeDescription, setStoreDescription] = useState(initial.storeDescription || '')
   const [locale, setLocale] = useState(initial.locale || 'ar')
@@ -71,7 +71,7 @@ export default function BrandingClient({ initial }: BrandingClientProps) {
     setQrLoading(false)
   }
 
-  /** Draws the QR image on a canvas and overlays the logo (or generic store fallback) in the center */
+  /** Draws the QR image on a canvas and overlays the logo (or ATHR brand fallback) in the center */
   const overlayLogoOnQr = (qrDataUrl: string, logoSrc?: string | null, color: string = '#1a544a'): Promise<string> => {
     return new Promise((resolve) => {
       const qrImg = new window.Image()
@@ -246,7 +246,7 @@ export default function BrandingClient({ initial }: BrandingClientProps) {
       {/* Page Header */}
       <div>
         <h1 className="text-2xl font-bold text-gray-900">الهوية البصرية</h1>
-        <p className="text-gray-500 text-sm mt-1">تحكم في صورة متجرك عند المشاركة وأيقونة المتصفح وكود QR</p>
+        <p className="text-gray-500 text-sm mt-1">تحكم في صورة أثر عند المشاركة وأيقونة المتصفح وكود QR</p>
       </div>
 
       {/* Toast */}
@@ -312,7 +312,7 @@ export default function BrandingClient({ initial }: BrandingClientProps) {
           </div>
           <div>
             <h2 className="font-bold text-gray-800">صورة المشاركة (Open Graph)</h2>
-            <p className="text-xs text-gray-500 mt-0.5">تظهر عند مشاركة رابط متجرك على Telegram, WhatsApp, X...</p>
+            <p className="text-xs text-gray-500 mt-0.5">تظهر عند مشاركة رابط أثر على Telegram, WhatsApp, X...</p>
           </div>
         </div>
 
@@ -415,7 +415,7 @@ export default function BrandingClient({ initial }: BrandingClientProps) {
           </div>
           <div>
             <h2 className="font-bold text-gray-800">كود QR عالي الدقة</h2>
-            <p className="text-xs text-gray-500 mt-0.5">قم بمسحه بأي كاميرا للوصول لمتجرك مباشرة — مثالي للمطبوعات والبطاقات</p>
+            <p className="text-xs text-gray-500 mt-0.5">قم بمسحه بأي كاميرا للوصول إلى أثر مباشرة — مثالي للمطبوعات والبطاقات</p>
           </div>
         </div>
 

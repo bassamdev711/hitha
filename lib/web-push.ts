@@ -9,7 +9,7 @@ const vapidPrivateKey = process.env.VAPID_PRIVATE_KEY || ''
 if (vapidPublicKey && vapidPrivateKey) {
   try {
     webpush.setVapidDetails(
-      'mailto:admin@example.com',
+      'mailto:hello@athr.store',
       vapidPublicKey.trim(),
       vapidPrivateKey.trim(),
     )

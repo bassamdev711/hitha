@@ -461,7 +461,7 @@ export default function ProductsClient({
                         className="object-contain p-6 mix-blend-multiply"
                       />
                     ) : (
-                      <div className="w-full h-full flex items-center justify-center text-accent/30 text-4xl">متجرنا</div>
+                      <div className="w-full h-full flex items-center justify-center text-accent/30 text-4xl">ATHR</div>
                     )}
                   </div>
                   <div className="flex-1 flex flex-col items-center justify-center p-3 text-center bg-white z-10 border-t border-black/10">
@@ -532,7 +532,7 @@ export default function ProductsClient({
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center text-accent/20 text-6xl group-hover:text-accent/40 transition-colors">
-                        متجرنا
+                        ATHR
                       </div>
                     )}
                     {product.compareAtPrice && (

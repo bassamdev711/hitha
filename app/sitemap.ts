@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next'
 import prisma from '@/lib/prisma'
 
-const DEFAULT_SITE_URL = 'https://example-store.vercel.app'
+const DEFAULT_SITE_URL = 'https://hitha711.vercel.app'
 
 type SitemapRecord = { slug: string; updatedAt: Date }
 

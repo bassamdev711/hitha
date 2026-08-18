@@ -22,8 +22,8 @@ export default function AdminSidebar({
   store?: Pick<StoreConfig, 'name' | 'nameLatin' | 'logoUrl'>
   children: React.ReactNode
 }) {
-  const storeName = store?.name || 'متجرك'
-  const storeNameLatin = store?.nameLatin || 'YOUR STORE'
+  const storeName = store?.name || 'أثر'
+  const storeNameLatin = store?.nameLatin || 'ATHR'
   const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
 

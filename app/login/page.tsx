@@ -42,9 +42,9 @@ export default function LoginPage() {
           </div>
         </div>
 
-        <h1 className="text-3xl font-black text-center text-foreground mb-2">لوحة المتجر</h1>
+        <h1 className="text-3xl font-black text-center text-foreground mb-2">إدارة أثر</h1>
         <p className="text-center text-foreground/60 font-medium mb-8">
-          تسجيل الدخول للوحة التحكم
+          تسجيل الدخول إلى لوحة تحكم ATHR
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -59,7 +59,7 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full pl-4 pr-12 py-3 bg-surface/50 border border-foreground/10 rounded-xl focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent text-foreground transition-all"
-                placeholder="admin@example.com"
+                placeholder="bassam@b.com"
                 autoComplete="email"
                 required
               />
@@ -95,13 +95,13 @@ export default function LoginPage() {
             disabled={loading}
             className="btn btn-primary w-full btn-lg !bg-accent !text-foreground hover:!bg-accent/90 border border-black/10 disabled:opacity-50 disabled:cursor-not-allowed h-14 text-lg"
           >
-            {loading ? 'جاري التحقق...' : 'دخول للوحة التحكم'}
+            {loading ? 'جاري التحقق...' : 'دخول إلى إدارة أثر'}
           </button>
         </form>
       </div>
 
       <p className="mt-8 text-sm text-foreground/40 font-medium">
-        هذه الصفحة مخصصة لمدير المتجر فقط.
+        هذه الصفحة مخصصة لمدير أثر فقط.
       </p>
     </div>
   )

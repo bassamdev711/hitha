@@ -9,8 +9,8 @@ interface SplashScreenProps {
 }
 
 export default function SplashScreen({
-  storeName = 'متجرك',
-  storeNameLatin = 'YOUR STORE',
+  storeName = 'أثر',
+  storeNameLatin = 'ATHR',
 }: SplashScreenProps) {
   const [showSplash, setShowSplash] = useState(false)
 
@@ -45,7 +45,7 @@ export default function SplashScreen({
           className="fixed inset-0 z-[99999] bg-brand flex items-center justify-center overflow-hidden"
           dir="ltr"
         >
-          {/* القطرة الذهبية التي تسقط */}
+          {/* العلامة النحاسية التي تفتتح تجربة أثر */}
           <motion.div
             initial={{ y: -300, scale: 0.5, opacity: 0 }}
             animate={{ 
@@ -62,7 +62,7 @@ export default function SplashScreen({
             style={{ filter: 'drop-shadow(0px 10px 10px rgba(200,164,93,0.5))' }}
           />
 
-          {/* الموجة / الدائرة الذهبية الناتجة عن الاصطدام */}
+          {/* الهالة النحاسية حول علامة أثر */}
           <motion.div
             initial={{ scale: 0, opacity: 0 }}
             animate={{ 
@@ -77,7 +77,7 @@ export default function SplashScreen({
             className="absolute w-40 h-40 border-[3px] border-accent rounded-full"
           />
 
-          {/* وهج داخلي */}
+          {/* توهج داخلي هادئ */}
           <motion.div
             initial={{ scale: 0, opacity: 0 }}
             animate={{ 

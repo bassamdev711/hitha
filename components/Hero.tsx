@@ -14,8 +14,8 @@ type HeroData = {
 
 export default function Hero({
   data = {},
-  brandName = 'متجرك',
-  brandNameLatin = 'YOUR STORE',
+  brandName = 'أثر',
+  brandNameLatin = 'ATHR',
 }: {
   data?: HeroData
   brandName?: string

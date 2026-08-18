@@ -135,7 +135,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                             {product.imageUrl ? (
                               <Image src={product.imageUrl} alt={product.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500" />
                             ) : (
-                              <span className="text-accent">متجرنا</span>
+                              <span className="text-accent font-black tracking-[0.12em]">ATHR</span>
                             )}
                           </div>
                           <div className="flex-grow">

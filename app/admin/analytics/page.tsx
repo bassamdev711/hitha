@@ -141,10 +141,10 @@ export default function AnalyticsPage() {
           <ShoppingBag className="w-5 h-5 text-brand mt-0.5" />
           <div>
             <h2 className="text-lg font-semibold text-gray-800">خطتك الحالية</h2>
-            <p className="text-sm text-gray-500 mt-1">تابع استهلاك متجرك واطلب الترقية عند الحاجة.</p>
+            <p className="text-sm text-gray-500 mt-1">تابع استهلاك أثر واطلب الترقية عند الحاجة.</p>
           </div>
         </div>
-        {isLegacyFallback && <div className="rounded-xl border border-blue-100 bg-blue-50 text-blue-800 p-4 text-sm leading-7 mb-5">يتم عرض القياسات الأساسية مؤقتًا. سيُحدّث النظام التفاصيل تلقائيًا عند تفعيل القياس التفصيلي، ولن يتوقف متجرك بسبب ذلك.</div>}
+        {isLegacyFallback && <div className="rounded-xl border border-blue-100 bg-blue-50 text-blue-800 p-4 text-sm leading-7 mb-5">يتم عرض القياسات الأساسية مؤقتًا. سيُحدّث النظام التفاصيل تلقائيًا عند تفعيل القياس التفصيلي، ولن يتوقف أثر بسبب ذلك.</div>}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="rounded-xl bg-gray-50 p-4"><p className="text-xs text-gray-500">الخطة الحالية</p><p className="font-bold text-gray-900 mt-2">{currentPlan.name}</p></div>
           <div className="rounded-xl bg-gray-50 p-4"><p className="text-xs text-gray-500">حالة الخدمة</p><p className="font-bold text-gray-900 mt-2">{getSubscriptionStatusLabel(currentSubscription.status)}</p></div>

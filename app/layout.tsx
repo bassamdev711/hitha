@@ -33,9 +33,9 @@ export async function generateMetadata(): Promise<Metadata> {
       ...(store.ogImageUrl ? { images: [store.ogImageUrl] } : {}),
     },
     icons: {
-      icon: store.faviconUrl ?? '/favicon.ico',
-      shortcut: store.faviconUrl ?? '/favicon.ico',
-      apple: store.faviconUrl ?? '/favicon.ico',
+      icon: store.faviconUrl ?? '/athr-mark.svg',
+      shortcut: store.faviconUrl ?? '/athr-mark.svg',
+      apple: store.faviconUrl ?? '/athr-mark.svg',
     },
   }
 }

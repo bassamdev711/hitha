@@ -15,10 +15,10 @@ export type StoreConfig = {
 }
 
 export const DEFAULT_STORE_CONFIG: StoreConfig = {
-  name: 'متجرك',
-  nameLatin: 'YOUR STORE',
-  tagline: 'أحذية مختارة بعناية، وخطوة تستحق التذكر.',
-  description: 'اكتشف تشكيلة أحذية يومية ورسمية بخامات مريحة وتجربة تسوق واضحة وآمنة.',
+  name: 'أثر',
+  nameLatin: 'ATHR',
+  tagline: 'أحذية تُصاغ كأثرٍ يبقى.',
+  description: 'أثر / ATHR: متجر أحذية فاخر يقدّم تصاميم منتقاة بخامات راقية وحضور هادئ.',
   logoUrl: null,
   faviconUrl: null,
   ogImageUrl: null,
@@ -40,11 +40,18 @@ type StoreSettingsRecord = {
   currencyCode: string
 }
 
+const PLACEHOLDER_BRANDS = new Set(['متجرك', 'متجرنا', 'your store', 'yourstore', 'store name'])
+
+function brandValue(value: string | null | undefined, fallback: string): string {
+  const cleaned = value?.trim() || ''
+  return cleaned && !PLACEHOLDER_BRANDS.has(cleaned.toLowerCase()) ? cleaned : fallback
+}
+
 function normalizeStoreConfig(settings: StoreSettingsRecord | null | undefined): StoreConfig {
   return {
     ...DEFAULT_STORE_CONFIG,
-    name: settings?.storeName?.trim() || DEFAULT_STORE_CONFIG.name,
-    nameLatin: settings?.storeNameLatin?.trim() || DEFAULT_STORE_CONFIG.nameLatin,
+    name: brandValue(settings?.storeName, DEFAULT_STORE_CONFIG.name),
+    nameLatin: brandValue(settings?.storeNameLatin, DEFAULT_STORE_CONFIG.nameLatin),
     tagline: settings?.storeTagline?.trim() || DEFAULT_STORE_CONFIG.tagline,
     description: settings?.storeDescription?.trim() || DEFAULT_STORE_CONFIG.description,
     logoUrl: settings?.logoUrl || null,
@@ -81,10 +88,10 @@ export const getStoreConfig = cache(async (): Promise<StoreConfig> => {
 })
 
 export function getSiteUrl(storeUrl?: string | null): URL {
-  const candidate = storeUrl || process.env.NEXT_PUBLIC_SITE_URL || 'https://example-store.vercel.app'
+  const candidate = storeUrl || process.env.NEXT_PUBLIC_SITE_URL || 'https://hitha711.vercel.app'
   try {
     return new URL(candidate)
   } catch {
-    return new URL('https://example-store.vercel.app')
+    return new URL('https://hitha711.vercel.app')
   }
 }

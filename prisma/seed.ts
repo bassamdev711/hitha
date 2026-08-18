@@ -10,8 +10,8 @@ async function main() {
     update: {},
     create: {
       id: 'singleton',
-      storeName: process.env.STORE_NAME?.trim() || 'متجرك',
-      storeNameLatin: process.env.STORE_NAME_LATIN?.trim() || 'YOUR STORE',
+      storeName: process.env.STORE_NAME?.trim() || 'أثر',
+      storeNameLatin: process.env.STORE_NAME_LATIN?.trim() || 'ATHR',
       storeTagline: process.env.STORE_TAGLINE?.trim() || 'منتجات مختارة بعناية، وتجربة تستحق التذكر.',
       storeDescription: process.env.STORE_DESCRIPTION?.trim() || 'اكتشف مجموعة مختارة من المنتجات مع تجربة تسوق واضحة وآمنة ومصممة لعلامتك التجارية.',
       locale: process.env.STORE_LOCALE?.trim() || 'ar',
