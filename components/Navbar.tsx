@@ -44,7 +44,7 @@ export default function Navbar({
   const navLinks = [
     { name: "الرئيسية", href: "/" },
     { name: "الفهرس", href: "/products" },
-    { name: "التصنيفات", href: "/#collections" },
+    { name: "التصنيفات", href: "/products" },
     { name: "فلسفة أثر", href: "/#about" },
     { name: "التفاصيل", href: "/#experience" },
   ];

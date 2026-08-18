@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowDownLeft, ArrowUpLeft, Check } from "lucide-react";
+import Link from "next/link";
 
 type HeroData = {
   heroTitle?: string | null
@@ -21,7 +22,6 @@ export default function Hero({
   brandName?: string
   brandNameLatin?: string
 }) {
-  const scrollToProducts = () => document.getElementById("products")?.scrollIntoView({ behavior: "smooth" });
   const scrollToAbout = () => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
 
   return (
@@ -65,10 +65,10 @@ export default function Hero({
           </div>
 
           <div className="mt-10 flex flex-wrap items-center gap-4">
-            <button onClick={scrollToProducts} className="group inline-flex items-center gap-4 bg-copper px-6 py-4 text-sm font-bold text-ink transition-transform hover:-translate-y-1">
+            <Link href="/products" className="group inline-flex items-center gap-4 bg-copper px-6 py-4 text-sm font-bold text-ink transition-transform hover:-translate-y-1">
               {data.heroPrimaryButton || "تسوّق المجموعة"}
               <ArrowDownLeft size={18} className="transition-transform group-hover:-translate-x-1 group-hover:translate-y-1" />
-            </button>
+            </Link>
             <button onClick={scrollToAbout} className="group inline-flex items-center gap-3 border-b border-paper/35 px-1 py-3 text-sm text-paper/80 transition-colors hover:border-copper hover:text-copper">
               {data.heroSecondaryButton || "اقرأ فلسفة أثر"}
               <ArrowUpLeft size={16} />
