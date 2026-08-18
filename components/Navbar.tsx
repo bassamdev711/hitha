@@ -37,6 +37,13 @@ export default function Navbar({
     if (localRef.current) cartIconRef.current = localRef.current;
   }, [cartIconRef]);
 
+  useEffect(() => {
+    document.body.style.overflow = isMobileMenuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobileMenuOpen]);
+
   const navLinks = [
     { name: "الرئيسية", href: "/" },
     { name: "الفهرس", href: "/products" },
@@ -82,16 +89,16 @@ export default function Navbar({
         </div>
       </div>
 
-      <motion.div initial={false} animate={{ opacity: isMobileMenuOpen ? 1 : 0, pointerEvents: isMobileMenuOpen ? "auto" : "none" }} className="fixed inset-0 z-40 flex min-h-screen flex-col justify-between bg-ink px-7 py-32 backdrop-blur-xl" dir="rtl">
-        <div className="space-y-5">
-          <p className="mb-8 text-[10px] font-bold tracking-[0.35em] text-copper uppercase">ATHR / أثر</p>
+      <motion.div initial={false} animate={{ opacity: isMobileMenuOpen ? 1 : 0, pointerEvents: isMobileMenuOpen ? "auto" : "none" }} className="fixed inset-0 z-40 flex h-[100dvh] flex-col overflow-y-auto overscroll-contain bg-ink px-6 pb-8 pt-24 backdrop-blur-xl sm:px-8 sm:pb-10 sm:pt-32" dir="rtl">
+        <div className="my-auto w-full space-y-2 py-6">
+          <p className="mb-7 text-[10px] font-bold tracking-[0.35em] text-copper uppercase sm:mb-9">ATHR / أثر</p>
           {navLinks.map((link, i) => (
             <motion.div key={link.name} initial={{ y: 20, opacity: 0 }} animate={isMobileMenuOpen ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }} transition={{ delay: i * 0.07 }}>
-              <Link href={link.href} className="flex items-center justify-between border-b border-paper/10 py-4 text-3xl font-black text-paper" onClick={() => setIsMobileMenuOpen(false)}><span>{link.name}</span><ArrowUpLeft className="text-copper" size={22} /></Link>
+              <Link href={link.href} className="flex min-h-14 items-center justify-between gap-5 border-b border-paper/10 py-3 text-[clamp(1.65rem,7vw,2.25rem)] font-black leading-[1.25] text-paper" onClick={() => setIsMobileMenuOpen(false)}><span className="min-w-0">{link.name}</span><ArrowUpLeft className="shrink-0 text-copper" size={20} /></Link>
             </motion.div>
           ))}
         </div>
-        <p className="text-[10px] tracking-[0.28em] text-paper/35 uppercase">a quiet form / a clear step</p>
+        <p className="mt-6 shrink-0 text-[9px] tracking-[0.2em] text-paper/35 uppercase sm:text-[10px] sm:tracking-[0.28em]">a quiet form / a clear step</p>
       </motion.div>
 
       <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
