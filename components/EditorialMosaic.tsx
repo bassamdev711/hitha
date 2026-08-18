@@ -7,21 +7,21 @@ import { ArrowUpLeft } from "lucide-react";
 
 export default function EditorialMosaic({ brandName = "أثر" }: { brandName?: string }) {
   return (
-    <section className="relative overflow-hidden bg-paper py-20 md:py-32" dir="rtl">
-      <div className="mx-auto max-w-[1500px] px-6 md:px-10 lg:px-16">
-        <div className="mb-12 flex flex-col justify-between gap-8 border-t border-ink/15 pt-6 md:mb-16 md:flex-row md:items-end">
+    <section className="relative isolate overflow-hidden bg-paper py-16 sm:py-20 md:py-32" dir="rtl">
+      <div className="mx-auto max-w-[1500px] px-4 sm:px-6 md:px-10 lg:px-16">
+        <div className="mb-10 flex min-w-0 flex-col justify-between gap-10 border-t border-ink/15 pt-5 sm:mb-12 sm:pt-6 md:mb-16 md:flex-row md:items-end">
           <div>
-            <p className="mb-4 text-[10px] font-bold tracking-[0.38em] text-copper uppercase">02 / visual index</p>
-            <h2 className="max-w-2xl text-4xl font-black leading-[0.95] tracking-[-0.04em] text-ink sm:text-6xl md:text-8xl">
+            <p className="mb-5 text-[9px] font-bold tracking-[0.24em] text-copper uppercase sm:mb-4 sm:text-[10px] sm:tracking-[0.38em]">02 / visual index</p>
+            <h2 className="max-w-[12ch] text-[clamp(2.35rem,11vw,5rem)] font-black leading-[1.12] tracking-[-0.035em] text-ink [text-wrap:balance] sm:max-w-2xl sm:text-6xl sm:leading-[1.02] md:text-8xl md:leading-[0.98]">
               المنتج ليس<br /><span className="text-copper">تفصيلًا صغيرًا.</span>
             </h2>
           </div>
-          <p className="max-w-xs text-sm leading-8 text-ink/60 md:text-base">
+          <p className="max-w-[32ch] text-[0.9rem] leading-7 text-ink/60 sm:text-sm sm:leading-8 md:text-base">
             في {brandName}، كل خامة تأخذ مساحتها. نترك للملمس أن يتكلم، وللخطوة أن تكمل المعنى.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-12 md:items-end">
+        <div className="mt-2 grid grid-cols-1 gap-5 md:mt-0 md:grid-cols-12 md:items-end">
           <motion.div whileHover={{ y: -8 }} transition={{ duration: 0.4 }} className="group relative aspect-[4/5] overflow-hidden bg-ink md:col-span-4">
             <Image src="/imeg/athr-editorial-black.png" alt="حذاء جلدي أسود من تحرير أثر" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
             <div className="absolute inset-0 bg-gradient-to-t from-ink/75 via-transparent to-transparent" />
