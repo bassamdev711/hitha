@@ -26,6 +26,9 @@ const HOMEPAGE_FIELDS = [
 type HomepageField = (typeof HOMEPAGE_FIELDS)[number]
 type HomepageUpdateInput = Partial<Record<HomepageField, string>>
 
+const PLACEHOLDER_HERO_TITLES = new Set(['متجرك', 'متجرنا', 'your store', 'yourstore', 'store name'])
+const ATHR_HERO_TITLE = 'امشِ بطريقتك.'
+
 function sanitizeHomepageUpdate(data: unknown): HomepageUpdateInput {
   if (!data || typeof data !== 'object' || Array.isArray(data)) return {}
 
@@ -69,7 +72,11 @@ export async function getHomepageSettings() {
       })
     }
 
-    return { success: true, data: settings }
+    const safeSettings = PLACEHOLDER_HERO_TITLES.has(settings.heroTitle.trim().toLowerCase())
+      ? { ...settings, heroTitle: ATHR_HERO_TITLE }
+      : settings
+
+    return { success: true, data: safeSettings }
   } catch (error) {
     console.error('Error fetching homepage settings:', error)
     return { success: false, error: 'حدث خطأ أثناء جلب إعدادات الصفحة الرئيسية' }
