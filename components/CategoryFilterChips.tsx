@@ -59,7 +59,7 @@ export default function CategoryFilterChips({ filters, activeCollection }: Categ
 
   return (
     <div
-      className={`sticky z-40 transition-all duration-500 ease-in-out bg-surface/95 backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.03)] border-b border-black/5 ${
+      className={`sticky z-40 transition-all duration-500 ease-in-out bg-surface/98 backdrop-blur-md shadow-[0_6px_22px_rgba(28,27,25,0.08)] border-b border-brand/10 ${
         isVisible ? 'top-14 md:top-[68px]' : '-top-[200px]'
       }`}
     >
@@ -102,8 +102,8 @@ export default function CategoryFilterChips({ filters, activeCollection }: Categ
                 <div
                   className={`relative w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center overflow-hidden border-[3px] transition-all duration-300 pointer-events-none ${
                     isActive
-                      ? 'border-brand shadow-[0_0_15px_rgba(32,37,34,0.1)] scale-105'
-                      : 'border-transparent bg-black/5 group-hover:border-brand/30 group-hover:scale-105'
+                      ? 'border-brand bg-surface shadow-[0_0_15px_rgba(28,27,25,0.16)] scale-105'
+                      : 'border-brand/10 bg-brand/5 group-hover:border-brand/45 group-hover:scale-105'
                   }`}
                 >
                   {f.imageUrl ? (
@@ -117,12 +117,12 @@ export default function CategoryFilterChips({ filters, activeCollection }: Categ
                     />
                   ) : (
                     <LayoutGrid className={`w-6 h-6 md:w-8 md:h-8 transition-all ${
-                      isActive ? 'text-brand' : 'text-foreground/40 group-hover:text-brand'
+                      isActive ? 'text-brand' : 'text-foreground/75 group-hover:text-brand'
                     }`} />
                   )}
                 </div>
                 <span className={`text-xs md:text-sm font-bold transition-colors pointer-events-none text-center w-16 md:w-20 whitespace-normal ${
-                  isActive ? 'text-brand' : 'text-foreground/70 group-hover:text-brand'
+                  isActive ? 'text-brand' : 'text-foreground/90 group-hover:text-brand'
                 }`}>
                   {f.label}
                 </span>
