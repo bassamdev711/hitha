@@ -15,7 +15,6 @@ export default function Navbar({
   storeName?: string
   storeNameLatin?: string
 }) {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { cartCount } = useCart();
@@ -24,14 +23,11 @@ export default function Navbar({
   const [topOffset, setTopOffset] = useState(0);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 36);
     const checkOffset = () => setTopOffset(document.getElementById("announcement-bar")?.offsetHeight || 0);
     checkOffset();
-    window.addEventListener("scroll", handleScroll);
     window.addEventListener("resize", checkOffset);
     const timeout = setTimeout(checkOffset, 100);
     return () => {
-      window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", checkOffset);
       clearTimeout(timeout);
     };
@@ -55,34 +51,34 @@ export default function Navbar({
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.7, ease: "easeOut" }}
       style={{ top: topOffset }}
-      className={`fixed z-50 w-full border-b transition-all duration-500 ${isScrolled ? "border-paper/10 bg-ink/95 py-3 text-paper shadow-[0_12px_40px_rgba(0,0,0,0.18)] backdrop-blur-xl" : "border-brand/10 bg-surface/95 py-5 text-brand shadow-[0_6px_24px_rgba(28,27,25,0.06)] backdrop-blur-md"}`}
+      className="fixed z-50 w-full border-b border-paper/10 bg-ink/95 py-4 text-paper shadow-[0_12px_40px_rgba(0,0,0,0.22)] backdrop-blur-xl transition-all duration-500"
     >
       <div className="mx-auto flex max-w-[1600px] items-center justify-between px-5 md:px-10 lg:px-16">
-        <Link href="/" className={`group relative z-50 flex items-center gap-3 ${isScrolled ? "text-paper" : "text-brand"}`}>
+        <Link href="/" className="group relative z-50 flex items-center gap-3 text-paper">
           <span className="text-lg font-black tracking-[-0.06em] text-copper md:text-2xl">{storeNameLatin}</span>
-          <span className={`border-r pr-3 text-xs tracking-[0.2em] md:text-sm ${isScrolled ? "border-paper/25 text-paper/75" : "border-brand/20 text-brand/75"}`}>{storeName}</span>
+          <span className="border-r border-paper/25 pr-3 text-xs tracking-[0.2em] text-paper/75 md:text-sm">{storeName}</span>
         </Link>
 
         <div className="hidden items-center gap-8 lg:flex" dir="rtl">
-          {navLinks.map((link, index) => (
-              <Link key={link.name} href={link.href} className={`group relative text-[11px] font-semibold tracking-[0.14em] transition-colors hover:text-copper ${isScrolled ? "text-paper/80" : "text-brand/80"}`}>
-              <span className="ml-2 text-copper/45">0{index + 1}</span>{link.name}
+          {navLinks.map((link) => (
+              <Link key={link.name} href={link.href} className="group relative text-[11px] font-semibold tracking-[0.14em] text-paper/85 transition-colors hover:text-copper">
+                {link.name}
               <span className="absolute -bottom-2 right-0 h-px w-0 bg-copper transition-all duration-300 group-hover:w-full" />
             </Link>
           ))}
         </div>
 
-        <div className={`relative z-50 flex items-center gap-3 md:gap-5 ${isScrolled ? "text-copper" : "text-brand"}`}>
-          <Link href="/track" className={`hidden transition-colors hover:text-copper sm:block ${isScrolled ? "text-paper/90" : "text-brand/90"}`} aria-label="تتبع الطلب"><Package size={18} strokeWidth={1.6} /></Link>
-          <Link href="/favorites" className={`hidden transition-colors hover:text-copper md:block ${isScrolled ? "text-paper/90" : "text-brand/90"}`} aria-label="المفضلة"><Heart size={18} strokeWidth={1.6} /></Link>
-          <button className={`transition-colors hover:text-copper ${isScrolled ? "text-paper/90" : "text-brand/90"}`} aria-label="البحث" onClick={() => setIsSearchOpen(true)}><Search size={18} strokeWidth={1.6} /></button>
+        <div className="relative z-50 flex items-center gap-3 text-copper md:gap-5">
+          <Link href="/track" className="hidden text-paper/90 transition-colors hover:text-copper sm:block" aria-label="تتبع الطلب"><Package size={18} strokeWidth={1.6} /></Link>
+          <Link href="/favorites" className="hidden text-paper/90 transition-colors hover:text-copper md:block" aria-label="المفضلة"><Heart size={18} strokeWidth={1.6} /></Link>
+          <button className="text-paper/90 transition-colors hover:text-copper" aria-label="البحث" onClick={() => setIsSearchOpen(true)}><Search size={18} strokeWidth={1.6} /></button>
           <div ref={localRef} className="relative hidden md:block">
-            <Link href="/cart" className={`flex items-center justify-center transition-colors hover:text-copper ${isScrolled ? "text-paper/90" : "text-brand/90"}`} aria-label="سلة المشتريات">
+            <Link href="/cart" className="flex items-center justify-center text-paper/90 transition-colors hover:text-copper" aria-label="سلة المشتريات">
               <motion.div animate={triggerBounce ? { scale: [1, 1.3, 1], rotate: [0, -8, 8, 0] } : {}} transition={{ duration: 0.5 }} onAnimationComplete={onBounceComplete}><ShoppingBag size={19} strokeWidth={1.4} /></motion.div>
               <AnimatePresence>{cartCount > 0 && <motion.span key={cartCount} initial={{ scale: 0 }} animate={{ scale: 1 }} className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-copper text-[9px] font-bold text-ink">{cartCount}</motion.span>}</AnimatePresence>
             </Link>
           </div>
-          <button className={`transition-colors hover:text-copper lg:hidden ${isScrolled ? "text-paper/90" : "text-brand/90"}`} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} aria-label={isMobileMenuOpen ? "إغلاق القائمة" : "فتح القائمة"} aria-expanded={isMobileMenuOpen}>{isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}</button>
+          <button className="text-paper/90 transition-colors hover:text-copper lg:hidden" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} aria-label={isMobileMenuOpen ? "إغلاق القائمة" : "فتح القائمة"} aria-expanded={isMobileMenuOpen}>{isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}</button>
         </div>
       </div>
 
