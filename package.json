@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && next build",
+    "build": "prisma generate && node scripts/db-push-and-seed.mjs && next build",
     "db:push": "prisma db push",
+    "db:setup": "node scripts/db-push-and-seed.mjs",
     "start": "next start",
     "lint": "eslint",
     "seed:shoes": "node scripts/seed-shoes.mjs"
