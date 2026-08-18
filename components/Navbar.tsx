@@ -58,10 +58,10 @@ export default function Navbar({
 
   const navLinks = [
     { name: "الرئيسية", href: "/" },
-    { name: "المجموعة", href: "/products" },
-    { name: "من نحن", href: "/#about" },
-    { name: `تجربة ${storeName}`, href: "/#experience" },
-    { name: "تواصل معنا", href: "/#contact" },
+    { name: "الأحذية", href: "/products" },
+    { name: "التصنيفات", href: "/#collections" },
+    { name: "عن العلامة", href: "/#about" },
+    { name: "التفاصيل", href: "/#experience" },
   ];
 
   return (
@@ -84,6 +84,9 @@ export default function Navbar({
           </span>
           <span className="text-sm md:text-lg font-light text-surface tracking-[0.2em] transition-colors duration-300">
             {storeName}
+          </span>
+          <span className="hidden border-r border-surface/25 pr-2 text-[9px] tracking-[0.22em] text-surface/60 uppercase sm:inline">
+            footwear
           </span>
         </Link>
 

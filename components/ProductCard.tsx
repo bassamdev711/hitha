@@ -63,8 +63,8 @@ export default function ProductCard({ product, currency, priority = false }: Pro
             className="object-cover mix-blend-multiply transition-transform duration-700 ease-out z-0 hover:scale-105"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center text-accent/20 text-6xl z-0">
-            متجرنا
+          <div className="w-full h-full flex items-center justify-center text-accent/20 text-5xl font-black tracking-tight z-0">
+            FOOTWEAR
           </div>
         )}
       </div>
@@ -72,7 +72,7 @@ export default function ProductCard({ product, currency, priority = false }: Pro
       <div className="flex-1 flex flex-col items-center justify-center p-3 md:p-6 text-center bg-white z-20 border-t border-black/5 relative">
         <h3 className="text-base md:text-2xl font-black text-foreground mb-0.5 md:mb-1">{product.name}</h3>
         <p className="text-accent text-[9px] md:text-[10px] tracking-[0.2em] uppercase mb-2 md:mb-4">
-          {product.engName || product.brand || 'Featured product'}
+          {product.engName || product.brand || 'Everyday footwear'}
         </p>
         
         <div className="flex items-center gap-1.5 md:gap-2 mb-3 md:mb-6">
@@ -86,7 +86,7 @@ export default function ProductCard({ product, currency, priority = false }: Pro
         
         <button 
           onClick={handleAddToCart}
-          className="w-full max-w-full md:max-w-[200px] h-8 md:h-10 border border-brand text-brand hover:bg-brand hover:text-surface transition-colors rounded-lg md:rounded-xl flex items-center justify-center gap-1.5 font-bold text-xs"
+          className="w-full max-w-full md:max-w-[200px] h-8 md:h-10 border border-brand text-brand hover:bg-brand hover:text-surface transition-colors rounded-sm flex items-center justify-center gap-1.5 font-bold text-xs"
         >
           <ShoppingBag size={13} className="md:w-4 md:h-4" />
           أضف للسلة

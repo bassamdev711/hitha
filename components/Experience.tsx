@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
+import { Ruler, ShieldCheck } from "lucide-react";
 
 type ExperienceData = {
   expTopTitle?: string | null
@@ -21,58 +22,67 @@ export default function Experience({
   brandName?: string
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
-
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, -100]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start end", "end start"] });
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, -50]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, 50]);
 
   return (
-    <section id="experience" className="relative py-32 bg-white overflow-hidden" ref={containerRef}>
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10" dir="rtl">
+    <section id="experience" className="relative overflow-hidden bg-white py-24 md:py-32" ref={containerRef} dir="rtl">
+      <div className="mx-auto max-w-7xl px-6 lg:px-12">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-24"
+          className="mb-16 max-w-2xl"
         >
-          <span className="text-accent tracking-[0.4em] uppercase text-xs font-bold mb-4 block">
-            {data.expTopTitle || "منهجنا في الاختيار"}
+          <span className="mb-4 block text-xs font-bold tracking-[0.35em] text-accent uppercase">
+            {data.expTopTitle || "ما يميّز التجربة"}
           </span>
-          <h2 className="text-4xl md:text-5xl font-black text-foreground mb-6">{data.expMainTitle || `تجربة ${brandName}`}</h2>
-          <div className="w-12 h-[2px] bg-brand mx-auto" />
+          <h2 className="text-4xl font-black leading-tight text-foreground md:text-5xl">
+            {data.expMainTitle || `تفاصيل تليق بخطوتك`}
+          </h2>
+          <div className="mt-6 h-1 w-16 bg-brand" />
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 lg:gap-24 items-center">
-          <motion.div style={{ y: y1 }} className="space-y-12">
-            <div className="bg-surface p-8 md:p-12 border-r-2 border-brand shadow-sm">
-              <h3 className="text-2xl text-foreground mb-4 font-black">{data.expBox1Title || "اختيار واضح"}</h3>
-              <p className="text-foreground/70 leading-relaxed font-light text-lg">
-                {data.expBox1Desc || "نقدم معلومات واضحة عن كل منتج، ونرتب التجربة بحيث تصل إلى الاختيار المناسب بأقل قدر من الحيرة."}
+        <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-2 lg:gap-24">
+          <motion.div style={{ y: y1 }} className="space-y-6">
+            <div className="border-r-2 border-brand bg-surface p-7 shadow-sm md:p-10">
+              <Ruler className="mb-6 text-accent" size={28} strokeWidth={1.5} />
+              <h3 className="mb-3 text-2xl font-black text-foreground">
+                {data.expBox1Title || "مقاس يشرح نفسه"}
+              </h3>
+              <p className="text-lg font-light leading-8 text-foreground/70">
+                {data.expBox1Desc || "تفاصيل واضحة للمقاسات والخامات تساعدك على اختيار الحذاء المناسب من أول مرة."}
               </p>
             </div>
-            
-            <div className="bg-surface p-8 md:p-12 border-l-2 border-accent shadow-sm md:mr-12">
-              <h3 className="text-2xl text-foreground mb-4 font-black">{data.expBox2Title || "تفاصيل محسوبة"}</h3>
-              <p className="text-foreground/70 leading-relaxed font-light text-lg">
-                {data.expBox2Desc || "نهتم بالتغليف، الدفع، المتابعة وخدمة العملاء حتى تكون كل خطوة متسقة مع وعد العلامة التجارية."}
+
+            <div className="mr-0 border-l-2 border-accent bg-brand p-7 text-surface shadow-sm md:mr-12 md:p-10">
+              <ShieldCheck className="mb-6 text-accent" size={28} strokeWidth={1.5} />
+              <h3 className="mb-3 text-2xl font-black">
+                {data.expBox2Title || "راحة تصل معك"}
+              </h3>
+              <p className="text-lg font-light leading-8 text-surface/70">
+                {data.expBox2Desc || "من التغليف إلى التوصيل والمتابعة، نحافظ على تجربة بسيطة وموثوقة تشبه جودة المنتج."}
               </p>
             </div>
           </motion.div>
 
-          <motion.div style={{ y: y2 }} className="relative h-[600px] w-full hidden md:block">
-            <div className="absolute inset-0 border border-accent/30 translate-x-4 translate-y-4"></div>
-            <div className="absolute inset-0 overflow-hidden shadow-2xl bg-surface p-4">
-              <div className="relative w-full h-full">
+          <motion.div style={{ y: y2 }} className="relative hidden h-[600px] w-full md:block">
+            <div className="absolute inset-0 translate-x-5 translate-y-5 border border-accent/30" />
+            <div className="absolute inset-0 bg-surface p-4 shadow-2xl">
+              <div className="relative h-full w-full overflow-hidden">
                 <Image
-                  src="/imeg/photo_3_2026-05-13_05-39-00.jpg"
-                  alt={`تجربة ${brandName}`}
+                  src="/imeg/shoes-experience.png"
+                  alt={`حذاء من تجربة ${brandName}`}
                   fill
+                  sizes="(max-width: 1024px) 50vw, 40vw"
                   className="object-cover"
                 />
-                <div className="absolute inset-0 bg-brand/10 mix-blend-overlay"></div>
+                <div className="absolute inset-0 bg-brand/10 mix-blend-multiply" />
+                <div className="absolute bottom-5 right-5 bg-surface/90 px-4 py-3 backdrop-blur-sm">
+                  <p className="text-[10px] font-bold tracking-[0.3em] text-brand uppercase">03 / details</p>
+                  <p className="mt-1 text-sm text-foreground">جودة تُرى وتُحس.</p>
+                </div>
               </div>
             </div>
           </motion.div>

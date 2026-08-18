@@ -30,14 +30,14 @@ export default async function CollectionsSection({ brandName = 'متجرك' }: {
   if (collections.length === 0) return null
 
   return (
-    <section className="py-12 md:py-24 bg-surface" dir="rtl">
+    <section id="collections" className="py-12 md:py-24 bg-surface" dir="rtl">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 md:mb-16 gap-4">
           <div>
-            <span className="text-accent tracking-[0.3em] uppercase text-xs font-bold mb-4 block">
-              تصنيفات {brandName}
+              <span className="text-accent tracking-[0.3em] uppercase text-xs font-bold mb-4 block">
+              اختيارات {brandName}
             </span>
-            <h2 className="text-3xl md:text-5xl font-black text-foreground">استكشف التصنيفات</h2>
+            <h2 className="text-3xl md:text-5xl font-black text-foreground">اختر أسلوبك</h2>
           </div>
           <Link href="/products" className="inline-flex items-center gap-2 text-brand font-bold border-b border-brand/30 hover:border-brand transition-colors pb-1">
             جميع المنتجات <ArrowLeft size={16} />

@@ -7,9 +7,9 @@
   جميع الأجزاء الأخرى كالتمرير والتدرجات تتكيف تلقائياً.
 */
 
-:root {
-  --brand-color:      #171512;  /* أسود دافئ */
-  --brand-accent:     #C9A45C;  /* ذهبي شامبين */
-  --brand-surface:    #F8F5EF;  /* عاجي */
-  --brand-foreground: #24211D;  /* بني أسود */
+  :root {
+  --brand-color:      #1C1B19;  /* فحمي عميق */
+  --brand-accent:     #B96A3D;  /* نحاسي جلدي */
+  --brand-surface:    #F4EFE7;  /* رملي فاتح */
+  --brand-foreground: #2B2622;  /* إسبريسو */
 }

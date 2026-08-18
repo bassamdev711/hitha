@@ -60,22 +60,22 @@ export default async function Home() {
       {/* 4. Bestsellers */}
       <ProductsServer 
         type="bestsellers" 
-        title="الأكثر مبيعاً" 
-        subtitle="اختيارات عملائنا المفضلة" 
+        title="الأكثر طلباً"
+        subtitle="أحذية يختارها عملاؤنا كل يوم"
       />
       
       {/* 5. Offers */}
       <ProductsServer 
         type="offers" 
-        title="عروض حصرية" 
-        subtitle="فرصتك لاقتناء الفخامة" 
+        title="اختيارات الموسم"
+        subtitle="تفاصيل جديدة بخامات تستحق التجربة"
       />
       
       {/* 6. Handpicked / Featured */}
       <ProductsServer 
         type="featured" 
-        title="منتجات مختارة" 
-        subtitle={`ترشيحات فريق ${store.name}`}
+        title="تحريرات مختارة"
+        subtitle={`ترشيحات فريق ${store.name} لخطوتك القادمة`}
       />
       
       {/* 7. Why trust us */}

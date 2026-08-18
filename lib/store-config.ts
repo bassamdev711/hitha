@@ -17,8 +17,8 @@ export type StoreConfig = {
 export const DEFAULT_STORE_CONFIG: StoreConfig = {
   name: 'متجرك',
   nameLatin: 'YOUR STORE',
-  tagline: 'منتجات مختارة بعناية، وتجربة تستحق التذكر.',
-  description: 'اكتشف مجموعة مختارة من المنتجات مع تجربة تسوق واضحة وآمنة ومصممة لعلامتك التجارية.',
+  tagline: 'أحذية مختارة بعناية، وخطوة تستحق التذكر.',
+  description: 'اكتشف تشكيلة أحذية يومية ورسمية بخامات مريحة وتجربة تسوق واضحة وآمنة.',
   logoUrl: null,
   faviconUrl: null,
   ogImageUrl: null,
