@@ -36,12 +36,12 @@ export default function Hero({
       <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_78%_18%,color-mix(in_srgb,var(--color-accent)_12%,transparent),transparent_34%),linear-gradient(130deg,transparent_0%,color-mix(in_srgb,var(--color-brand)_5%,transparent)_100%)]" />
       <div className="absolute -left-32 bottom-0 h-72 w-72 rounded-full bg-accent/10 blur-3xl pointer-events-none" />
 
-      <div className="relative z-10 mx-auto grid min-h-[100dvh] max-w-[1440px] grid-cols-1 items-stretch lg:grid-cols-[0.92fr_1.08fr]">
+      <div className="relative z-10 mx-auto grid min-h-[100dvh] max-w-[1440px] grid-cols-1 items-stretch md:grid-cols-[0.92fr_1.08fr]">
         <motion.div
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.15 }}
-          className="order-2 flex flex-col justify-center px-6 pb-12 pt-28 sm:px-10 lg:order-1 lg:px-16 lg:pb-20 lg:pt-32 xl:px-24"
+          className="order-2 flex flex-col justify-center px-5 pb-12 pt-28 sm:px-8 md:order-1 md:px-8 md:py-24 lg:px-16 lg:py-28 xl:px-24"
         >
           <div className="mb-7 flex items-center gap-3 text-xs font-bold tracking-[0.28em] text-accent">
             <span className="h-px w-10 bg-accent" />
@@ -49,7 +49,7 @@ export default function Hero({
           </div>
 
           <p className="mb-4 text-sm font-medium tracking-[0.22em] text-foreground/55 uppercase">{brandNameLatin} <span className="mr-2 tracking-normal text-foreground/40">/ {brandName}</span></p>
-          <h1 className="max-w-xl text-[3.25rem] font-black leading-[0.98] tracking-tight text-foreground sm:text-6xl xl:text-[6.25rem]">
+          <h1 className="max-w-xl text-[3rem] font-black leading-[0.98] tracking-tight text-foreground sm:text-5xl md:text-4xl lg:text-6xl xl:text-[6.25rem]">
             {data.heroTitle || "خطوتك تبدأ من هنا"}
           </h1>
           <p className="mt-5 max-w-lg text-2xl font-light leading-snug text-brand sm:text-3xl">
@@ -83,15 +83,22 @@ export default function Hero({
           initial={{ opacity: 0, scale: 0.97 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.25 }}
-          className="order-1 relative min-h-[58vh] overflow-hidden bg-brand lg:order-2 lg:min-h-[100dvh]"
+          className="order-1 relative min-h-[52vh] overflow-hidden bg-brand md:order-2 md:min-h-[100dvh]"
         >
+          <Image
+            src="/imeg/shoes-hero-wide.png"
+            alt="حذاء جلدي أسود من مجموعة المتجر"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-[center_58%] md:hidden"
+          />
           <Image
             src="/imeg/shoes-hero.png"
             alt="حذاء جلدي أسود من مجموعة المتجر"
             fill
-            priority
-            sizes="(max-width: 1024px) 100vw, 55vw"
-            className="object-cover object-center"
+            sizes="(min-width: 768px) 55vw, 0px"
+            className="hidden object-cover object-center md:block"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-brand/70 via-transparent to-brand/10" />
           <div className="absolute inset-x-5 bottom-5 flex items-end justify-between gap-4 text-surface sm:inset-x-8 sm:bottom-8 lg:inset-x-12 lg:bottom-12">
