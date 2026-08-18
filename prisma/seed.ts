@@ -28,52 +28,7 @@ async function main() {
     console.log('Created default shipping city: إب')
   }
 
-  if (process.env.SEED_DEMO_DATA !== 'true') {
-    console.log('Demo catalog skipped. Set SEED_DEMO_DATA=true to add sample products.')
-    return
-  }
-
-  const demoProducts = [
-    {
-      name: 'منتج تجريبي أساسي',
-      slug: 'demo-product-basic',
-      brand: 'YOUR BRAND',
-      description: 'منتج تجريبي قابل للاستبدال من لوحة التحكم.',
-      price: 10,
-      stock: 25,
-      isActive: true,
-      category: 'General',
-      gender: 'Unisex',
-      size: 'Standard',
-      featured: true,
-      bestseller: false,
-    },
-    {
-      name: 'منتج تجريبي مميز',
-      slug: 'demo-product-featured',
-      brand: 'YOUR BRAND',
-      description: 'مثال عام لمنتج مميز في المتجر.',
-      price: 25,
-      stock: 15,
-      isActive: true,
-      category: 'Featured',
-      gender: 'Unisex',
-      size: 'Standard',
-      featured: true,
-      bestseller: true,
-    },
-  ]
-
-  for (const product of demoProducts) {
-    const createdProduct = await prisma.product.upsert({
-      where: { slug: product.slug },
-      update: {},
-      create: product,
-    })
-    console.log(`Created demo product: ${createdProduct.id}`)
-  }
-
-  console.log('Database seed finished.')
+  console.log('Store settings and default shipping data are ready. The ATHR catalog is managed by scripts/seed-shoes.mjs.')
 }
 
 main()
