@@ -11,6 +11,7 @@ import ProductsServer from "@/components/ProductsServer";
 import { getHomepageSettings } from "@/app/actions/homepage";
 import prisma from "@/lib/prisma";
 import CampaignBanner from "@/components/CampaignBanner";
+import EditorialMosaic from "@/components/EditorialMosaic";
 import { getStoreConfig } from "@/lib/store-config";
 
 // Dynamic Imports for components below the fold (Lazy Loading)
@@ -51,31 +52,34 @@ export default async function Home() {
       {/* Campaign Banner (if any) */}
       {activeCampaign && <CampaignBanner campaign={activeCampaign} />}
       
-      {/* 2. Value Proposition */}
+      {/* 2. Manifesto */}
       <About data={safeSettings} brandName={store.name} />
-      
-      {/* 3. Categories (Collections) */}
+
+      {/* 3. Editorial interlude */}
+      <EditorialMosaic brandName={store.name} />
+
+      {/* 4. Collection index */}
       <CollectionsSection brandName={store.name} />
-      
-      {/* 4. Bestsellers */}
-      <ProductsServer 
-        type="bestsellers" 
-        title="الأكثر طلباً"
-        subtitle="أحذية يختارها عملاؤنا كل يوم"
+
+      {/* 5. Bestsellers */}
+      <ProductsServer
+        type="bestsellers"
+        title="القطع التي بدأت بها الحكاية"
+        subtitle="أحذية يختارها من يعرف قيمة التفاصيل"
       />
-      
-      {/* 5. Offers */}
-      <ProductsServer 
-        type="offers" 
-        title="اختيارات الموسم"
-        subtitle="تفاصيل جديدة بخامات تستحق التجربة"
+
+      {/* 6. Seasonal edit */}
+      <ProductsServer
+        type="offers"
+        title="تحرير الموسم"
+        subtitle="ألوان وملامس جديدة، بلا ضجيج"
       />
-      
-      {/* 6. Handpicked / Featured */}
-      <ProductsServer 
-        type="featured" 
-        title="تحريرات مختارة"
-        subtitle={`ترشيحات فريق ${store.name} لخطوتك القادمة`}
+
+      {/* 7. Handpicked edit */}
+      <ProductsServer
+        type="featured"
+        title="اختيارات المحرر"
+        subtitle={`ترشيحات ${store.name} للخطوة القادمة`}
       />
       
       {/* 7. Why trust us */}

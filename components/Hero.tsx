@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowLeft, Check } from "lucide-react";
+import { ArrowDownLeft, ArrowUpLeft, Check } from "lucide-react";
 
 type HeroData = {
   heroTitle?: string | null
@@ -21,94 +21,89 @@ export default function Hero({
   brandName?: string
   brandNameLatin?: string
 }) {
-  const scrollToProducts = () => {
-    const section = document.getElementById("products");
-    if (section) section.scrollIntoView({ behavior: "smooth" });
-  };
-
-  const scrollToAbout = () => {
-    const section = document.getElementById("about");
-    if (section) section.scrollIntoView({ behavior: "smooth" });
-  };
+  const scrollToProducts = () => document.getElementById("products")?.scrollIntoView({ behavior: "smooth" });
+  const scrollToAbout = () => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
 
   return (
-    <section id="hero" className="relative w-full min-h-[100dvh] overflow-hidden bg-surface" dir="rtl">
-      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_78%_18%,color-mix(in_srgb,var(--color-accent)_12%,transparent),transparent_34%),linear-gradient(130deg,transparent_0%,color-mix(in_srgb,var(--color-brand)_5%,transparent)_100%)]" />
-      <div className="absolute -left-32 bottom-0 h-72 w-72 rounded-full bg-accent/10 blur-3xl pointer-events-none" />
+    <section id="hero" className="relative min-h-[100svh] overflow-hidden bg-ink text-paper" dir="rtl">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(198,128,69,0.18),transparent_30%),linear-gradient(115deg,#131313_0%,#1e1c19_52%,#0d0d0d_100%)]" />
+      <div className="absolute inset-y-0 left-[13%] hidden w-px bg-white/10 lg:block" />
+      <div className="absolute bottom-10 right-10 h-16 w-16 border-b border-r border-copper/70" />
 
-      <div className="relative z-10 mx-auto grid min-h-[100dvh] max-w-[1440px] grid-cols-1 items-stretch md:grid-cols-[0.92fr_1.08fr]">
+      <div className="relative z-10 mx-auto grid min-h-[100svh] max-w-[1600px] grid-cols-1 lg:grid-cols-[0.82fr_1.18fr]">
         <motion.div
-          initial={{ opacity: 0, y: 28 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.15 }}
-          className="order-2 flex flex-col justify-center px-5 pb-12 pt-28 sm:px-8 md:order-1 md:px-8 md:py-24 lg:px-16 lg:py-28 xl:px-24"
+          initial={{ opacity: 0, x: 32 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          className="order-2 flex flex-col justify-end px-6 pb-12 pt-32 sm:px-10 lg:order-1 lg:px-14 lg:pb-20 xl:px-24"
         >
-          <div className="mb-7 flex items-center gap-3 text-xs font-bold tracking-[0.28em] text-accent">
-            <span className="h-px w-10 bg-accent" />
-            <span>مختارات يومية • إصدار جديد</span>
+          <div className="mb-8 flex items-center gap-3 text-[10px] font-bold tracking-[0.4em] text-copper uppercase">
+            <span className="h-px w-12 bg-copper" />
+            <span>الفصل الأول / أثر يومي</span>
           </div>
 
-          <p className="mb-4 text-sm font-medium tracking-[0.22em] text-foreground/55 uppercase">{brandNameLatin} <span className="mr-2 tracking-normal text-foreground/40">/ {brandName}</span></p>
-          <h1 className="max-w-xl text-[3rem] font-black leading-[0.98] tracking-tight text-foreground sm:text-5xl md:text-4xl lg:text-6xl xl:text-[6.25rem]">
-            {data.heroTitle || "خطوتك تبدأ من هنا"}
-          </h1>
-          <p className="mt-5 max-w-lg text-2xl font-light leading-snug text-brand sm:text-3xl">
-            {data.heroSubtitle || "أحذية تصنع حضورك كل يوم."}
+          <p className="mb-6 text-xs font-medium tracking-[0.3em] text-paper/55 uppercase">
+            {brandNameLatin} <span className="mr-2 tracking-normal text-paper/35">/ {brandName}</span>
           </p>
-          <p className="mt-6 max-w-md whitespace-pre-line text-base font-light leading-8 text-foreground/65 sm:text-lg">
-            {data.heroDescription || "تشكيلة منتقاة من الأحذية اليومية والرسمية،\nبخامات مريحة وتفاصيل تبقى معك."}
+          <h1 className="max-w-[680px] text-[3.7rem] font-black leading-[0.92] tracking-[-0.05em] sm:text-6xl md:text-7xl xl:text-[7.4rem]">
+            {data.heroTitle || "يمشي معك.\nيُرى قبلك."}
+          </h1>
+          <p className="mt-7 max-w-xl text-xl font-light leading-relaxed text-paper/75 sm:text-2xl">
+            {data.heroSubtitle || "أحذية تُبنى حول الخطوة، لا حول الضجيج."}
+          </p>
+          <p className="mt-5 max-w-lg whitespace-pre-line text-sm leading-8 text-paper/50 sm:text-base">
+            {data.heroDescription || "تشكيلة منتقاة من الجلد، القماش، والملمس.\nتصميم واضح، راحة يومية، وأثر لا يحتاج إلى شرح."}
           </p>
 
-          <div className="mt-9 flex flex-wrap gap-3 text-xs font-medium text-foreground/70">
-            {['خامات مختارة', 'مقاسات واضحة', 'شحن موثوق'].map((item) => (
-              <span key={item} className="inline-flex items-center gap-2 rounded-full border border-foreground/10 bg-white/40 px-3 py-2">
-                <Check size={14} className="text-accent" />
+          <div className="mt-8 flex flex-wrap gap-x-5 gap-y-3 text-[11px] text-paper/65">
+            {['خامات محسوبة', 'مقاسات صريحة', 'توصيل موثوق'].map((item) => (
+              <span key={item} className="inline-flex items-center gap-2">
+                <Check size={13} className="text-copper" />
                 {item}
               </span>
             ))}
           </div>
 
-          <div className="mt-10 flex flex-wrap gap-3">
-            <button onClick={scrollToProducts} className="btn btn-primary btn-lg gap-3">
-              {data.heroPrimaryButton || "تسوق المجموعة"}
-              <ArrowLeft size={18} />
+          <div className="mt-10 flex flex-wrap items-center gap-4">
+            <button onClick={scrollToProducts} className="group inline-flex items-center gap-4 bg-copper px-6 py-4 text-sm font-bold text-ink transition-transform hover:-translate-y-1">
+              {data.heroPrimaryButton || "تسوّق المجموعة"}
+              <ArrowDownLeft size={18} className="transition-transform group-hover:-translate-x-1 group-hover:translate-y-1" />
             </button>
-            <button onClick={scrollToAbout} className="btn btn-outline btn-lg">
-              {data.heroSecondaryButton || "قصة التفاصيل"}
+            <button onClick={scrollToAbout} className="group inline-flex items-center gap-3 border-b border-paper/35 px-1 py-3 text-sm text-paper/80 transition-colors hover:border-copper hover:text-copper">
+              {data.heroSecondaryButton || "اقرأ فلسفة أثر"}
+              <ArrowUpLeft size={16} />
             </button>
+          </div>
+
+          <div className="mt-14 flex items-end justify-between border-t border-paper/15 pt-5 text-[10px] tracking-[0.25em] text-paper/35 uppercase">
+            <span>01 — The opening edit</span>
+            <span className="text-paper/55">سطر جديد للحركة</span>
           </div>
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.97 }}
+          initial={{ opacity: 0, scale: 1.04 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.25 }}
-          className="order-1 relative min-h-[52vh] overflow-hidden bg-brand md:order-2 md:min-h-[100dvh]"
+          transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1] }}
+          className="order-1 relative min-h-[56svh] overflow-hidden lg:order-2 lg:min-h-[100svh]"
         >
           <Image
-            src="/imeg/shoes-hero-wide.png"
-            alt="حذاء جلدي أسود من مجموعة المتجر"
+            src="/imeg/athr-hero-art.png"
+            alt="تكوين فني لأحذية أثر"
             fill
             priority
-            sizes="100vw"
-            className="object-cover object-[center_58%] md:hidden"
+            sizes="(max-width: 1023px) 100vw, 65vw"
+            className="object-cover object-center"
           />
-          <Image
-            src="/imeg/shoes-hero.png"
-            alt="حذاء جلدي أسود من مجموعة المتجر"
-            fill
-            sizes="(min-width: 768px) 55vw, 0px"
-            className="hidden object-cover object-center md:block"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-brand/70 via-transparent to-brand/10" />
-          <div className="absolute inset-x-5 bottom-5 flex items-end justify-between gap-4 text-surface sm:inset-x-8 sm:bottom-8 lg:inset-x-12 lg:bottom-12">
+          <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-ink/10" />
+          <div className="absolute inset-x-6 bottom-7 flex items-end justify-between sm:inset-x-10 sm:bottom-10 lg:inset-x-14 lg:bottom-14">
             <div>
-              <p className="text-[10px] font-bold tracking-[0.34em] text-accent uppercase">The everyday edit</p>
-              <p className="mt-2 text-sm font-light text-surface/75">تصميم هادئ. حضور واضح.</p>
+              <p className="text-[10px] font-bold tracking-[0.35em] text-copper uppercase">Quiet form / loud presence</p>
+              <p className="mt-2 text-sm text-paper/70">ثلاثة أشكال. موقف واحد.</p>
             </div>
-            <span className="hidden text-6xl font-black leading-none text-surface/15 sm:block">01</span>
+            <span className="text-7xl font-black leading-none text-paper/15 sm:text-9xl">01</span>
           </div>
-          <div className="absolute right-5 top-24 h-20 w-20 border-r border-t border-accent/60 sm:right-8 sm:top-32 lg:right-12" />
+          <div className="absolute right-6 top-28 h-24 w-24 border-r border-t border-copper/70 sm:right-10 sm:top-36 lg:right-14" />
         </motion.div>
       </div>
     </section>

@@ -3,7 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ShoppingBag } from 'lucide-react';
+import { ArrowUpLeft, ShoppingBag } from 'lucide-react';
 import FavoriteButton from './FavoriteButton';
 import { useCart } from './CartProvider';
 import { useToast } from './ToastProvider';
@@ -38,20 +38,21 @@ export default function ProductCard({ product, currency, priority = false }: Pro
       price: product.price,
       imageUrl: product.imageUrl,
       quantity: 1,
-      maxStock: 99, // default max stock if not provided
+      maxStock: 99,
     });
     showToast('success', 'تمت الإضافة إلى السلة بنجاح');
   };
 
   return (
-    <div className="relative bg-white cursor-pointer group shadow-sm hover:shadow-xl transition-all duration-500 border border-black/10 rounded-xl md:rounded-2xl flex flex-col overflow-hidden h-auto md:h-[500px]">
-      <div className="relative w-full h-[180px] md:h-[60%] bg-surface/50 transition-colors duration-500 group-hover:bg-surface flex items-center justify-center">
-        <FavoriteButton 
-          product={product}
-          className="z-20 m-4 md:m-6"
-        />
-        <Link href={`/products/${product.slug}`} className="absolute inset-0 z-10" />
-        
+    <article className="group relative flex min-h-[430px] flex-col overflow-hidden bg-[#e3ddd3] text-ink transition-transform duration-500 hover:-translate-y-2 md:min-h-[560px]">
+      <div className="absolute inset-x-5 top-5 z-20 flex items-center justify-between text-[10px] font-bold tracking-[0.25em] text-ink/45 uppercase md:inset-x-7 md:top-7">
+        <span>edit / 0{priority ? '1' : '2'}</span>
+        <FavoriteButton product={product} className="m-0 text-ink/70" />
+      </div>
+
+      <Link href={`/products/${product.slug}`} className="absolute inset-0 z-10" aria-label={`عرض ${product.name}`} />
+      <div className="relative min-h-[280px] flex-1 overflow-hidden md:min-h-[355px]">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_46%,rgba(255,255,255,0.55),transparent_35%)]" />
         {product.imageUrl ? (
           <Image
             src={product.imageUrl}
@@ -60,38 +61,30 @@ export default function ProductCard({ product, currency, priority = false }: Pro
             sizes={getImageSizes('card')}
             priority={priority}
             loading={priority ? undefined : 'lazy'}
-            className="object-cover mix-blend-multiply transition-transform duration-700 ease-out z-0 hover:scale-105"
+            className="z-0 object-cover mix-blend-multiply transition-transform duration-700 ease-out group-hover:scale-105"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center text-accent/20 text-5xl font-black tracking-tight z-0">
-            FOOTWEAR
-          </div>
+          <div className="flex h-full items-center justify-center text-5xl font-black tracking-tight text-copper/20">ATHR</div>
         )}
+        <div className="absolute bottom-5 right-5 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-ink/20 bg-paper/60 text-ink opacity-0 backdrop-blur-sm transition-all duration-300 group-hover:-translate-x-1 group-hover:opacity-100"><ArrowUpLeft size={17} /></div>
       </div>
-      
-      <div className="flex-1 flex flex-col items-center justify-center p-3 md:p-6 text-center bg-white z-20 border-t border-black/5 relative">
-        <h3 className="text-base md:text-2xl font-black text-foreground mb-0.5 md:mb-1">{product.name}</h3>
-        <p className="text-accent text-[9px] md:text-[10px] tracking-[0.2em] uppercase mb-2 md:mb-4">
-          {product.engName || product.brand || 'Everyday footwear'}
-        </p>
-        
-        <div className="flex items-center gap-1.5 md:gap-2 mb-3 md:mb-6">
-          <p className="text-brand font-bold text-sm md:text-lg">{Number(product.price).toLocaleString('ar-SA')} {currency}</p>
-          {product.compareAtPrice && (
-            <p className="text-foreground/40 line-through text-[10px] md:text-sm">
-              {Number(product.compareAtPrice).toLocaleString('ar-SA')}
-            </p>
-          )}
+
+      <div className="relative z-20 border-t border-ink/15 bg-paper/55 p-5 backdrop-blur-sm md:p-7" dir="rtl">
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <p className="mb-2 text-[9px] font-bold tracking-[0.23em] text-copper uppercase">{product.engName || product.brand || 'ATHR / everyday form'}</p>
+            <h3 className="text-xl font-black tracking-[-0.03em] text-ink md:text-2xl">{product.name}</h3>
+          </div>
+          <p className="shrink-0 pt-1 text-sm font-bold text-ink">{Number(product.price).toLocaleString('ar-SA')} <span className="text-[10px] text-ink/45">{currency}</span></p>
         </div>
-        
-        <button 
-          onClick={handleAddToCart}
-          className="w-full max-w-full md:max-w-[200px] h-8 md:h-10 border border-brand text-brand hover:bg-brand hover:text-surface transition-colors rounded-sm flex items-center justify-center gap-1.5 font-bold text-xs"
-        >
-          <ShoppingBag size={13} className="md:w-4 md:h-4" />
-          أضف للسلة
-        </button>
+        <div className="mt-5 flex items-center justify-between gap-3">
+          {product.compareAtPrice ? <p className="text-xs text-ink/35 line-through">{Number(product.compareAtPrice).toLocaleString('ar-SA')}</p> : <span />}
+          <button onClick={handleAddToCart} className="group/btn relative z-30 inline-flex items-center gap-2 border-b border-ink/30 pb-2 text-xs font-bold text-ink transition-colors hover:border-copper hover:text-copper">
+            <ShoppingBag size={14} />
+            أضف إلى اختياراتي
+          </button>
+        </div>
       </div>
-    </div>
+    </article>
   );
 }

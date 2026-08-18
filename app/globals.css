@@ -12,6 +12,9 @@
   --color-accent:     var(--brand-accent);
   --color-surface:    var(--brand-surface);
   --color-foreground: var(--brand-foreground);
+  --color-ink:        var(--brand-color);
+  --color-paper:      var(--brand-surface);
+  --color-copper:     var(--brand-accent);
 
   /* ── مشتقات تلقائية ── */
   --color-brand-hover:       color-mix(in srgb, var(--brand-color) 80%, black);

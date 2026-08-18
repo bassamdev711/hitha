@@ -1,7 +1,7 @@
 import prisma from '@/lib/prisma'
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowUpLeft } from 'lucide-react'
 
 type CollectionCard = {
   id: string
@@ -11,17 +11,16 @@ type CollectionCard = {
   imageUrl: string | null
 }
 
-// Caching to improve speed
-export const revalidate = 3600 // revalidate every hour
+export const revalidate = 3600
 
-export default async function CollectionsSection({ brandName = 'متجرك' }: { brandName?: string }) {
+export default async function CollectionsSection({ brandName = 'أثر' }: { brandName?: string }) {
   let collections: CollectionCard[] = []
-  
+
   try {
     collections = await prisma.collection.findMany({
       where: { isActive: true },
       orderBy: { createdAt: 'desc' },
-      take: 4,
+      take: 10,
     })
   } catch (error) {
     console.error('Failed to load collections:', error)
@@ -30,55 +29,41 @@ export default async function CollectionsSection({ brandName = 'متجرك' }: {
   if (collections.length === 0) return null
 
   return (
-    <section id="collections" className="py-12 md:py-24 bg-surface" dir="rtl">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 md:mb-16 gap-4">
+    <section id="collections" className="relative overflow-hidden bg-paper py-24 md:py-36" dir="rtl">
+      <div className="mx-auto max-w-[1500px] px-6 md:px-10 lg:px-16">
+        <div className="mb-12 flex flex-col justify-between gap-7 border-t border-ink/15 pt-6 md:mb-16 md:flex-row md:items-end">
           <div>
-              <span className="text-accent tracking-[0.3em] uppercase text-xs font-bold mb-4 block">
-              اختيارات {brandName}
-            </span>
-            <h2 className="text-3xl md:text-5xl font-black text-foreground">اختر أسلوبك</h2>
+            <p className="mb-5 text-[10px] font-bold tracking-[0.4em] text-copper uppercase">05 / the collection index</p>
+            <h2 className="text-5xl font-black leading-[0.94] tracking-[-0.05em] text-ink sm:text-7xl md:text-8xl">فهرس<br /><span className="text-copper">الخطوة.</span></h2>
           </div>
-          <Link href="/products" className="inline-flex items-center gap-2 text-brand font-bold border-b border-brand/30 hover:border-brand transition-colors pb-1">
-            جميع المنتجات <ArrowLeft size={16} />
-          </Link>
+          <div className="flex max-w-sm items-end justify-between gap-8 md:pb-2">
+            <p className="text-sm leading-8 text-ink/55">عشر مساحات مختلفة للقدم، للمزاج، ولليوم الذي تختاره.</p>
+            <Link href="/products" className="hidden shrink-0 border-b border-ink/25 pb-2 text-xs font-bold text-ink transition-colors hover:border-copper hover:text-copper md:block">كل الفهرس <ArrowUpLeft className="mr-2 inline" size={15} /></Link>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-          {collections.map((collection) => (
-            <Link 
-              key={collection.id} 
-              href={`/products?collection=${collection.slug}`}
-              className="group relative h-[200px] md:h-[400px] overflow-hidden rounded-xl md:rounded-3xl bg-black/5 border border-black/20 shadow-md hover:shadow-xl transition-shadow duration-300"
-            >
-              {collection.imageUrl ? (
-                <Image 
-                  src={collection.imageUrl} 
-                  alt={collection.name}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-              ) : (
-                <div className="absolute inset-0 bg-brand/10 flex items-center justify-center">
-                  <span className="text-brand font-black text-3xl opacity-20">{brandName}</span>
-                </div>
-              )}
-              
-              <div className="absolute inset-0 bg-gradient-to-t from-foreground/90 via-foreground/30 to-transparent" />
-              
-              <div className="absolute bottom-0 left-0 right-0 p-4 md:p-8">
-                <h3 className="text-lg md:text-2xl font-bold text-surface mb-1 md:mb-2 group-hover:-translate-y-2 transition-transform duration-300">
-                  {collection.name}
-                </h3>
-                {collection.description && (
-                  <p className="text-surface/70 text-sm line-clamp-2 opacity-0 group-hover:opacity-100 group-hover:-translate-y-2 transition-all duration-300 delay-75">
-                    {collection.description}
-                  </p>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-12 lg:gap-5">
+          {collections.map((collection, index) => {
+            const featured = index === 0 || index === 5
+            return (
+              <Link key={collection.id} href={`/products?collection=${collection.slug}`} className={`group relative overflow-hidden bg-ink ${featured ? 'aspect-[1.25/1] sm:aspect-[1.1/1] lg:col-span-6' : 'aspect-[1/1.1] lg:col-span-3'}`}>
+                {collection.imageUrl ? (
+                  <Image src={collection.imageUrl} alt={collection.name} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center bg-[#2a2825]"><span className="text-4xl font-black text-paper/15">{brandName}</span></div>
                 )}
-              </div>
-            </Link>
-          ))}
+                <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/15 to-transparent" />
+                <div className="absolute inset-x-5 bottom-5 flex items-end justify-between gap-4 text-paper md:inset-x-7 md:bottom-7">
+                  <div>
+                    <p className="mb-2 text-[10px] font-bold tracking-[0.3em] text-copper uppercase">0{index + 1} / edit</p>
+                    <h3 className={`${featured ? 'text-3xl md:text-5xl' : 'text-2xl md:text-3xl'} font-black tracking-[-0.04em]`}>{collection.name}</h3>
+                    {collection.description && <p className="mt-2 max-w-xs text-xs leading-6 text-paper/60 opacity-0 transition-opacity duration-300 group-hover:opacity-100">{collection.description}</p>}
+                  </div>
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-paper/30 text-copper transition-transform duration-300 group-hover:-translate-x-1 group-hover:-translate-y-1"><ArrowUpLeft size={17} /></span>
+                </div>
+              </Link>
+            )
+          })}
         </div>
       </div>
     </section>

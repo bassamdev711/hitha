@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Search, ShoppingCart, Package, Heart } from "lucide-react";
+import { Menu, X, Search, ShoppingBag, Package, Heart, ArrowUpLeft } from "lucide-react";
 import Link from "next/link";
 import { useCart } from "./CartProvider";
 import SearchModal from "./SearchModal";
@@ -23,32 +23,13 @@ export default function Navbar({
   const localRef = useRef<HTMLDivElement>(null);
   const [topOffset, setTopOffset] = useState(0);
 
-  // sync local ref into context ref
   useEffect(() => {
-    if (localRef.current) {
-      cartIconRef.current = localRef.current;
-    }
-  }, [cartIconRef]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    
-    const checkOffset = () => {
-      const bar = document.getElementById("announcement-bar");
-      setTopOffset(bar ? bar.offsetHeight : 0);
-    };
-
-    // Initial check
+    const handleScroll = () => setIsScrolled(window.scrollY > 36);
+    const checkOffset = () => setTopOffset(document.getElementById("announcement-bar")?.offsetHeight || 0);
     checkOffset();
-    
     window.addEventListener("scroll", handleScroll);
     window.addEventListener("resize", checkOffset);
-    
-    // Also check after a short delay to ensure DOM is fully rendered
     const timeout = setTimeout(checkOffset, 100);
-    
     return () => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", checkOffset);
@@ -56,142 +37,65 @@ export default function Navbar({
     };
   }, []);
 
+  useEffect(() => {
+    if (localRef.current) cartIconRef.current = localRef.current;
+  }, [cartIconRef]);
+
   const navLinks = [
     { name: "الرئيسية", href: "/" },
-    { name: "الأحذية", href: "/products" },
+    { name: "الفهرس", href: "/products" },
     { name: "التصنيفات", href: "/#collections" },
-    { name: "عن العلامة", href: "/#about" },
+    { name: "فلسفة أثر", href: "/#about" },
     { name: "التفاصيل", href: "/#experience" },
   ];
 
   return (
     <motion.nav
-      initial={{ y: -100, opacity: 0 }}
+      initial={{ y: -70, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
+      transition={{ duration: 0.7, ease: "easeOut" }}
       style={{ top: topOffset }}
-      className={`fixed w-full z-50 transition-all duration-500 ${
-        isScrolled
-          ? "bg-brand/95 backdrop-blur-md py-1.5 md:py-2 shadow-md"
-          : "bg-brand py-2.5 md:py-4"
-      }`}
+      className={`fixed z-50 w-full transition-all duration-500 ${isScrolled ? "bg-ink/90 py-3 shadow-[0_12px_40px_rgba(0,0,0,0.18)] backdrop-blur-xl" : "bg-transparent py-5"}`}
     >
-      <div className="max-w-7xl mx-auto px-4 md:px-8 flex justify-between items-center">
-        {/* Logo */}
-        <Link href="/" className="relative z-50 flex items-center gap-1.5 md:gap-2 group">
-          <span className="text-base md:text-xl font-bold tracking-widest text-accent transition-colors duration-300">
-            {storeNameLatin}
-          </span>
-          <span className="text-sm md:text-lg font-light text-surface tracking-[0.2em] transition-colors duration-300">
-            {storeName}
-          </span>
-          <span className="hidden border-r border-surface/25 pr-2 text-[9px] tracking-[0.22em] text-surface/60 uppercase sm:inline">
-            footwear
-          </span>
+      <div className="mx-auto flex max-w-[1600px] items-center justify-between px-5 md:px-10 lg:px-16">
+        <Link href="/" className="group relative z-50 flex items-center gap-3 text-paper">
+          <span className="text-lg font-black tracking-[-0.06em] text-copper md:text-2xl">{storeNameLatin}</span>
+          <span className="border-r border-paper/25 pr-3 text-xs tracking-[0.2em] text-paper/65 md:text-sm">{storeName}</span>
         </Link>
 
-        {/* Desktop Links */}
-        <div className="hidden md:flex items-center gap-8" dir="rtl">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              className="text-sm font-medium tracking-wide text-surface/80 hover:text-accent transition-all duration-300 relative group"
-            >
-              {link.name}
-              <span className="absolute -bottom-1 right-0 w-0 h-[1px] bg-accent transition-all duration-300 group-hover:w-full"></span>
+        <div className="hidden items-center gap-8 lg:flex" dir="rtl">
+          {navLinks.map((link, index) => (
+            <Link key={link.name} href={link.href} className="group relative text-[11px] font-medium tracking-[0.14em] text-paper/65 transition-colors hover:text-copper">
+              <span className="ml-2 text-copper/45">0{index + 1}</span>{link.name}
+              <span className="absolute -bottom-2 right-0 h-px w-0 bg-copper transition-all duration-300 group-hover:w-full" />
             </Link>
           ))}
         </div>
 
-        {/* Actions & Mobile Menu Toggle */}
-        <div className="flex items-center gap-2.5 md:gap-4 relative z-50">
-          <Link 
-            href="/track" 
-            className="text-accent hover:text-surface transition-colors hidden sm:block" 
-            aria-label="تتبع الطلب"
-          >
-            <Package className="w-[18px] h-[18px] md:w-5 md:h-5" strokeWidth={1.5} />
-          </Link>
-          <Link 
-            href="/favorites" 
-            className="text-accent hover:text-surface transition-colors relative hidden md:block" 
-            aria-label="المفضلة"
-          >
-            <Heart className="w-[18px] h-[18px] md:w-5 md:h-5" strokeWidth={1.5} />
-          </Link>
-          <button 
-            className="text-accent hover:text-surface transition-colors" 
-            aria-label="البحث"
-            onClick={() => setIsSearchOpen(true)}
-          >
-            <Search className="w-[18px] h-[18px] md:w-5 md:h-5" strokeWidth={1.5} />
-          </button>
+        <div className="relative z-50 flex items-center gap-3 text-copper md:gap-5">
+          <Link href="/track" className="hidden transition-colors hover:text-paper sm:block" aria-label="تتبع الطلب"><Package size={18} strokeWidth={1.4} /></Link>
+          <Link href="/favorites" className="hidden transition-colors hover:text-paper md:block" aria-label="المفضلة"><Heart size={18} strokeWidth={1.4} /></Link>
+          <button className="transition-colors hover:text-paper" aria-label="البحث" onClick={() => setIsSearchOpen(true)}><Search size={18} strokeWidth={1.4} /></button>
           <div ref={localRef} className="relative hidden md:block">
-            <Link href="/cart" className="text-accent hover:text-surface transition-colors relative flex items-center justify-center" aria-label="سلة المشتريات">
-              <motion.div
-                animate={triggerBounce ? { scale: [1, 1.4, 0.9, 1.15, 1], rotate: [0, -8, 8, -4, 0] } : {}}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-                onAnimationComplete={onBounceComplete}
-              >
-                <ShoppingCart className="w-[18px] h-[18px] md:w-5 md:h-5" strokeWidth={1.5} />
-              </motion.div>
-              <AnimatePresence>
-                {cartCount > 0 && (
-                  <motion.span
-                    key={cartCount}
-                    initial={{ scale: 0.5, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ type: "spring", stiffness: 500, damping: 20 }}
-                    className="absolute -top-1.5 -right-2 bg-accent text-brand text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center"
-                  >
-                    {cartCount}
-                  </motion.span>
-                )}
-              </AnimatePresence>
+            <Link href="/cart" className="flex items-center justify-center transition-colors hover:text-paper" aria-label="سلة المشتريات">
+              <motion.div animate={triggerBounce ? { scale: [1, 1.3, 1], rotate: [0, -8, 8, 0] } : {}} transition={{ duration: 0.5 }} onAnimationComplete={onBounceComplete}><ShoppingBag size={19} strokeWidth={1.4} /></motion.div>
+              <AnimatePresence>{cartCount > 0 && <motion.span key={cartCount} initial={{ scale: 0 }} animate={{ scale: 1 }} className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-copper text-[9px] font-bold text-ink">{cartCount}</motion.span>}</AnimatePresence>
             </Link>
           </div>
-          
-          {/* Mobile Menu Toggle */}
-          <button
-            className="md:hidden text-accent hover:text-surface transition-colors"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label={isMobileMenuOpen ? "إغلاق القائمة" : "فتح القائمة"}
-            aria-expanded={isMobileMenuOpen}
-          >
-            {isMobileMenuOpen ? <X size={22} strokeWidth={1.5} /> : <Menu size={22} strokeWidth={1.5} />}
-          </button>
+          <button className="transition-colors hover:text-paper lg:hidden" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} aria-label={isMobileMenuOpen ? "إغلاق القائمة" : "فتح القائمة"} aria-expanded={isMobileMenuOpen}>{isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}</button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      <motion.div
-        initial={false}
-        animate={{
-          opacity: isMobileMenuOpen ? 1 : 0,
-          pointerEvents: isMobileMenuOpen ? "auto" : "none",
-        }}
-        className="fixed inset-0 bg-brand/98 backdrop-blur-xl z-40 flex flex-col items-center justify-center min-h-screen"
-        dir="rtl"
-      >
-        <div className="flex flex-col items-center gap-5">
+      <motion.div initial={false} animate={{ opacity: isMobileMenuOpen ? 1 : 0, pointerEvents: isMobileMenuOpen ? "auto" : "none" }} className="fixed inset-0 z-40 flex min-h-screen flex-col justify-between bg-ink px-7 py-32 backdrop-blur-xl" dir="rtl">
+        <div className="space-y-5">
+          <p className="mb-8 text-[10px] font-bold tracking-[0.35em] text-copper uppercase">navigation / أثر</p>
           {navLinks.map((link, i) => (
-            <motion.div
-              key={link.name}
-              initial={{ y: 20, opacity: 0 }}
-              animate={isMobileMenuOpen ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }}
-              transition={{ delay: i * 0.1, duration: 0.4 }}
-            >
-              <Link
-                href={link.href}
-                className="text-lg font-medium tracking-wider text-surface hover:text-accent transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {link.name}
-              </Link>
+            <motion.div key={link.name} initial={{ y: 20, opacity: 0 }} animate={isMobileMenuOpen ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }} transition={{ delay: i * 0.07 }}>
+              <Link href={link.href} className="flex items-center justify-between border-b border-paper/10 py-4 text-3xl font-black text-paper" onClick={() => setIsMobileMenuOpen(false)}><span>{link.name}</span><ArrowUpLeft className="text-copper" size={22} /></Link>
             </motion.div>
           ))}
         </div>
+        <p className="text-[10px] tracking-[0.28em] text-paper/35 uppercase">a quiet form / a clear step</p>
       </motion.div>
 
       <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />

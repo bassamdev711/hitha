@@ -1,6 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
+import { ArrowDownLeft } from "lucide-react";
 
 type AboutData = {
   aboutTopTitle?: string | null
@@ -17,53 +19,47 @@ export default function About({
   brandName?: string
 }) {
   return (
-    <section id="about" className="relative overflow-hidden bg-brand py-20 md:py-28" dir="rtl">
-      <div className="absolute inset-0 bg-[url('/imeg/shoes-about.png')] bg-cover bg-center opacity-45" />
-      <div className="absolute inset-0 bg-gradient-to-l from-brand/95 via-brand/78 to-brand/40" />
-      <div className="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-brand/75 to-transparent" />
-
-      <div className="relative z-10 mx-auto grid min-h-[540px] max-w-7xl items-center gap-12 px-6 md:px-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-24">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="max-w-2xl"
-        >
-          <span className="mb-6 block text-xs font-bold tracking-[0.35em] text-accent uppercase">
-            {data.aboutTopTitle || `هوية ${brandName}`}
-          </span>
-          <h2 className="mb-7 text-4xl font-black leading-tight text-surface md:text-6xl">
-            {data.aboutMainTitle || "نصنع الفرق في التفاصيل"}
+    <section id="about" className="relative overflow-hidden bg-ink py-24 text-paper md:py-36" dir="rtl">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_20%,rgba(198,128,69,0.16),transparent_25%)]" />
+      <div className="mx-auto grid max-w-[1500px] gap-14 px-6 md:px-10 lg:grid-cols-12 lg:gap-16 lg:px-16">
+        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="lg:col-span-7">
+          <p className="mb-8 text-[10px] font-bold tracking-[0.4em] text-copper uppercase">03 / the point of view</p>
+          <h2 className="max-w-5xl text-5xl font-black leading-[0.92] tracking-[-0.05em] sm:text-7xl lg:text-[8rem]">
+            {data.aboutMainTitle || "نصمّم\nما يبقى."}
           </h2>
-          <div className="mb-8 h-px w-16 bg-accent" />
-          <p className="mb-7 text-2xl font-light leading-tight text-surface/95 md:text-4xl">
-            {data.aboutQuote || 'كل خطوة تستحق حذاءً يليق بها.'}
-          </p>
-          <p className="max-w-xl text-base font-light leading-8 text-surface/70 md:text-lg">
-            {data.aboutDescription || 'نختار تصاميمنا حول راحة القدم وشكلها، ونمنح كل خامة ومساحة وخياطة وقتها حتى تصل إليك قطعة ترافقك بثقة من أول خطوة.'}
-          </p>
+          <div className="mt-10 grid gap-8 border-t border-paper/15 pt-7 md:grid-cols-[1fr_1.2fr]">
+            <p className="text-xl font-light leading-relaxed text-copper md:text-2xl">
+              {data.aboutQuote || 'كل خطوة تستحق حذاءً يليق بها.'}
+            </p>
+            <div>
+              <p className="mb-7 max-w-xl text-sm leading-8 text-paper/60 md:text-base">
+                {data.aboutDescription || `في ${brandName} لا نطارد الضجيج. نبحث عن الشكل الذي يظل جميلًا بعد يوم طويل، والخامة التي تتحسن مع الوقت، والتفصيل الذي لا تراه إلا عندما تقترب.`}
+              </p>
+              <span className="inline-flex items-center gap-3 text-xs font-bold tracking-[0.24em] text-paper/50 uppercase">
+                crafted for the everyday
+                <ArrowDownLeft size={16} className="text-copper" />
+              </span>
+            </div>
+          </div>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, x: -24 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.9, delay: 0.1 }}
-          className="hidden justify-self-end lg:block"
-        >
-          <div className="border border-accent/40 p-4 backdrop-blur-sm">
-            <div className="border border-surface/20 px-8 py-10 text-center">
-              <span className="text-7xl font-black leading-none text-surface/10">02</span>
-              <p className="mt-6 text-xs font-bold tracking-[0.3em] text-accent uppercase">Made for your pace</p>
-              <p className="mt-3 text-sm leading-7 text-surface/65">خامات تلمسها. تصميم تراه. راحة تشعر بها.</p>
+        <motion.div initial={{ opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="relative min-h-[480px] lg:col-span-5 lg:min-h-[690px]">
+          <div className="absolute inset-0 translate-x-4 translate-y-4 border border-copper/45" />
+          <div className="absolute inset-0 overflow-hidden bg-paper p-3">
+            <div className="relative h-full w-full overflow-hidden">
+              <Image src="/imeg/athr-after-dark.png" alt={`تكوين فني من هوية ${brandName}`} fill sizes="(max-width: 1024px) 100vw, 38vw" className="object-cover transition-transform duration-700 hover:scale-105" />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
+              <div className="absolute bottom-5 right-5 left-5 flex items-end justify-between text-paper">
+                <div>
+                  <p className="text-[10px] font-bold tracking-[0.34em] text-copper uppercase">after dark / 02</p>
+                  <p className="mt-2 text-sm text-paper/75">حضور هادئ، أثر واضح.</p>
+                </div>
+                <span className="text-6xl font-black text-paper/20">∞</span>
+              </div>
             </div>
           </div>
         </motion.div>
       </div>
-
-      <div className="absolute bottom-8 right-8 h-8 w-8 border-b border-r border-accent/60" />
-      <div className="absolute left-8 top-8 h-8 w-8 border-l border-t border-accent/60" />
     </section>
   );
 }
