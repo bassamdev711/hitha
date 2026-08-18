@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowDownLeft, ArrowUpLeft, Check } from "lucide-react";
+import SplineHeroVisual from "./SplineHeroVisual";
 
 type HeroData = {
   heroTitle?: string | null
@@ -96,6 +97,7 @@ export default function Hero({
             className="object-cover object-center"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-ink/10" />
+          <SplineHeroVisual />
           <div className="absolute inset-x-6 bottom-7 flex items-end justify-between sm:inset-x-10 sm:bottom-10 lg:inset-x-14 lg:bottom-14">
             <div>
               <p className="text-[10px] font-bold tracking-[0.35em] text-copper uppercase">Quiet form / loud presence</p>
