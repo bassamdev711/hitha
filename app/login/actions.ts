@@ -18,9 +18,12 @@ function normalizeEmail(value: string) {
   return value.trim().toLowerCase()
 }
 
-export async function login(email: string, password: string) {
-  const candidateEmail = typeof email === 'string' ? normalizeEmail(email) : ''
-  const candidatePassword = typeof password === 'string' ? password : ''
+export async function login(emailOrPassword: string, password?: string) {
+  const passwordOnlyMode = typeof password === 'undefined' || process.env.ADMIN_PASSWORD_ONLY_MODE === 'true'
+  const candidateEmail = passwordOnlyMode ? '' : (typeof emailOrPassword === 'string' ? normalizeEmail(emailOrPassword) : '')
+  const candidatePassword = passwordOnlyMode
+    ? (typeof emailOrPassword === 'string' ? emailOrPassword : '')
+    : (typeof password === 'string' ? password : '')
   const headersList = await headers()
   const ip = headersList.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown'
 
@@ -29,9 +32,9 @@ export async function login(email: string, password: string) {
     return { success: false, error: 'تم تجاوز الحد المسموح به لمحاولات تسجيل الدخول. يرجى الانتظار 15 دقيقة والمحاولة مجدداً.' }
   }
 
-  if (!candidateEmail || !candidatePassword) {
+  if ((!passwordOnlyMode && !candidateEmail) || !candidatePassword) {
     await delay()
-    return { success: false, error: 'يرجى إدخال البريد الإلكتروني وكلمة المرور.' }
+    return { success: false, error: passwordOnlyMode ? 'يرجى إدخال كلمة المرور.' : 'يرجى إدخال البريد الإلكتروني وكلمة المرور.' }
   }
 
   let secret: Uint8Array
@@ -47,45 +50,66 @@ export async function login(email: string, password: string) {
   let isPasswordValid = false
 
   try {
-    const adminProfile = await prisma.adminProfile.findUnique({
-      where: { id: 'singleton' },
-      select: { email: true, isSetupComplete: true, passwordHash: true },
-    })
-
-    if (adminProfile?.isSetupComplete && adminProfile.passwordHash) {
-      const profileEmail = adminProfile.email ? normalizeEmail(adminProfile.email) : configuredEmail
-      const emailMatches = Boolean(profileEmail) && candidateEmail === profileEmail
-      isPasswordValid = emailMatches && verifyPassword(candidatePassword, adminProfile.passwordHash)
-
-      // Backfill the email for an older password-only setup when ADMIN_EMAIL is configured.
-      if (isPasswordValid && !adminProfile.email && configuredEmail) {
-        await prisma.adminProfile.update({
-          where: { id: 'singleton' },
-          data: { email: candidateEmail },
-        })
-      }
-    } else if (process.env.ADMIN_SETUP_ENABLED === 'true' && configuredEmail && configuredPassword) {
-      const policyError = validateAdminPassword(configuredPassword)
-      if (policyError) {
-        return { success: false, error: `تهيئة الإدارة غير مكتملة: ${policyError}` }
-      }
-
-      if (candidateEmail === configuredEmail && candidatePassword === configuredPassword) {
+    if (passwordOnlyMode && configuredPassword) {
+      if (candidatePassword === configuredPassword) {
         await prisma.adminProfile.upsert({
           where: { id: 'singleton' },
           update: {
-            email: candidateEmail,
+            ...(configuredEmail ? { email: configuredEmail } : {}),
             passwordHash: hashPassword(candidatePassword),
             isSetupComplete: true,
           },
           create: {
             id: 'singleton',
-            email: candidateEmail,
+            name: 'مدير أثر',
+            email: configuredEmail || null,
             passwordHash: hashPassword(candidatePassword),
             isSetupComplete: true,
           },
         })
         isPasswordValid = true
+      }
+    } else {
+      const adminProfile = await prisma.adminProfile.findUnique({
+        where: { id: 'singleton' },
+        select: { email: true, isSetupComplete: true, passwordHash: true },
+      })
+
+      if (adminProfile?.isSetupComplete && adminProfile.passwordHash) {
+        const profileEmail = adminProfile.email ? normalizeEmail(adminProfile.email) : configuredEmail
+        const emailMatches = Boolean(profileEmail) && candidateEmail === profileEmail
+        isPasswordValid = emailMatches && verifyPassword(candidatePassword, adminProfile.passwordHash)
+
+        // Backfill the email for an older password-only setup when ADMIN_EMAIL is configured.
+        if (isPasswordValid && !adminProfile.email && configuredEmail) {
+          await prisma.adminProfile.update({
+            where: { id: 'singleton' },
+            data: { email: candidateEmail },
+          })
+        }
+      } else if (process.env.ADMIN_SETUP_ENABLED === 'true' && configuredEmail && configuredPassword) {
+        const policyError = validateAdminPassword(configuredPassword)
+        if (policyError) {
+          return { success: false, error: `تهيئة الإدارة غير مكتملة: ${policyError}` }
+        }
+
+        if (candidateEmail === configuredEmail && candidatePassword === configuredPassword) {
+          await prisma.adminProfile.upsert({
+            where: { id: 'singleton' },
+            update: {
+              email: candidateEmail,
+              passwordHash: hashPassword(candidatePassword),
+              isSetupComplete: true,
+            },
+            create: {
+              id: 'singleton',
+              email: candidateEmail,
+              passwordHash: hashPassword(candidatePassword),
+              isSetupComplete: true,
+            },
+          })
+          isPasswordValid = true
+        }
       }
     }
   } catch (error) {

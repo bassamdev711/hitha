@@ -3,11 +3,10 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { login } from './actions'
-import { Lock, ArrowRight, Mail, ShieldCheck } from 'lucide-react'
+import { Lock, ArrowRight, ShieldCheck } from 'lucide-react'
 import Link from 'next/link'
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
@@ -18,7 +17,7 @@ export default function LoginPage() {
     setError('')
     setLoading(true)
 
-    const res = await login(email, password)
+    const res = await login(password)
 
     if (res.success) {
       router.push('/admin')
@@ -50,24 +49,6 @@ export default function LoginPage() {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label className="block text-sm font-bold text-foreground mb-2">
-              البريد الإلكتروني
-            </label>
-            <div className="relative">
-              <Mail className="absolute right-4 top-1/2 -translate-y-1/2 text-foreground/40 w-5 h-5" />
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full pl-4 pr-12 py-3 bg-surface/50 border border-foreground/10 rounded-xl focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent text-foreground transition-all"
-                placeholder="bassam@b.com"
-                autoComplete="email"
-                required
-              />
-            </div>
-          </div>
-
-          <div>
-            <label className="block text-sm font-bold text-foreground mb-2">
               كلمة المرور الإدارية
             </label>
             <div className="relative">
@@ -77,7 +58,7 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full pl-4 pr-12 py-3 bg-surface/50 border border-foreground/10 rounded-xl focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent text-foreground transition-all"
-                placeholder="أدخل كلمة المرور..."
+                placeholder="أدخل كلمة مرور الإدارة..."
                 autoComplete="current-password"
                 required
               />
@@ -89,6 +70,8 @@ export default function LoginPage() {
               {error}
             </div>
           )}
+
+          <p className="text-center text-xs text-foreground/45 -mt-2">الوصول المؤقت يعتمد على كلمة المرور المخزنة في متغيرات البيئة.</p>
 
           <button
             type="submit"
